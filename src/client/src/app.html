@@ -1,67 +1,78 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<title>nrs.pub — Node Resolution Service | Free Public RPC for Any Chain</title>
-		<meta name="description" content="Free public RPC endpoint aggregation and smart routing for 90+ blockchains. No API keys, no accounts. One URL per chain with automatic failover and health monitoring." />
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://nrs.pub" />
-		<meta property="og:title" content="nrs.pub — Free Public RPC for Any Chain" />
-		<meta property="og:description" content="Public RPC node resolution and smart routing for 90+ blockchains. No API keys, no limits. Replace your RPC endpoint with nrs.pub and get automatic failover across vetted public nodes." />
-		<meta property="og:image" content="https://nrs.pub/assets/logo-black.png" />
-		<meta property="og:site_name" content="nrs.pub" />
+	<title>nrs.pub — Node Resolution Service | Free Public RPC for Any Chain</title>
+	<meta name="description"
+		content="Free public RPC endpoint aggregation and smart routing for blockchains. No API keys, no accounts. One URL per chain with automatic failover and health monitoring." />
 
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:site" content="@saefstroem" />
-		<meta name="twitter:creator" content="@saefstroem" />
-		<meta name="twitter:title" content="nrs.pub — Free Public RPC for Any Chain" />
-		<meta name="twitter:description" content="Public RPC node resolution and smart routing for 90+ blockchains. No API keys, no limits. One URL per chain." />
-		<meta name="twitter:image" content="https://nrs.pub/assets/logo-black.png" />
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://nrs.pub" />
+	<meta property="og:title" content="nrs.pub — Free Public RPC for Any Chain" />
+	<meta property="og:description"
+		content="Public RPC node resolution and smart routing for blockchains. No API keys, no limits. Replace your RPC endpoint with nrs.pub and get automatic failover across vetted public nodes." />
+	<meta property="og:image" content="https://nrs.pub/assets/banner.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="nrs.pub — Free Public RPC for Any Chain" />
+	<meta property="og:site_name" content="nrs.pub" />
 
-		<meta name="keywords" content="RPC, public RPC, free RPC, blockchain RPC, node resolution, RPC aggregator, RPC failover, Ethereum RPC, multi-chain RPC, RPC routing, Web3 infrastructure" />
-		<meta name="author" content="saefstroem" />
-		<meta name="robots" content="index, follow" />
-		<link rel="canonical" href="https://nrs.pub" />
+	<!-- Twitter / X -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@saefstroem" />
+	<meta name="twitter:creator" content="@saefstroem" />
+	<meta name="twitter:title" content="nrs.pub — Free Public RPC for Any Chain" />
+	<meta name="twitter:description"
+		content="Public RPC node resolution and smart routing for blockchains. No API keys, no limits. One URL per chain." />
+	<meta name="twitter:image" content="https://nrs.pub/assets/banner.png" />
 
-		<link rel="icon" href="assets/favicon.png" sizes="any" />
-		<link rel="icon" href="assets/favicon.png" type="image/png" />
-		<link rel="apple-touch-icon" href="assets/favicon.png" />
+	<meta name="keywords"
+		content="RPC, public RPC, free RPC, blockchain RPC, node resolution, RPC aggregator, RPC failover, Ethereum RPC, multi-chain RPC, RPC routing, Web3 infrastructure" />
+	<meta name="author" content="saefstroem" />
+	<meta name="robots" content="index, follow" />
+	<link rel="canonical" href="https://nrs.pub" />
 
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "WebApplication",
-				"name": "nrs.pub",
-				"alternateName": "Node Resolution Service",
-				"url": "https://nrs.pub",
-				"description": "Free public RPC endpoint aggregation and smart routing for 90+ blockchains. No API keys, no accounts.",
-				"applicationCategory": "DeveloperApplication",
-				"operatingSystem": "Any",
-				"offers": {
-					"@type": "Offer",
-					"price": "0",
-					"priceCurrency": "USD"
-				},
-				"author": {
-					"@type": "Person",
-					"name": "saefstroem",
-					"url": "https://x.com/asaefstroem"
-				}
-			}
-		</script>
+	<link rel="icon" href="assets/favicon.png" sizes="any" />
+	<link rel="icon" href="assets/favicon.png" type="image/png" />
+	<link rel="apple-touch-icon" href="assets/favicon.png" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
-			rel="stylesheet"
-		/>
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+	<script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "nrs.pub",
+                "alternateName": "Node Resolution Service",
+                "url": "https://nrs.pub",
+                "description": "Free public RPC endpoint aggregation and smart routing for blockchains. No API keys, no accounts.",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Any",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": "saefstroem",
+                    "url": "https://x.com/asaefstroem"
+                }
+            }
+        </script>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+		rel="stylesheet" />
+	%sveltekit.head%
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents">%sveltekit.body%</div>
+</body>
+
 </html>
