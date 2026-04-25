@@ -213,7 +213,7 @@ Violations result in automatic IP blacklisting.
 
 ## Roadmap
 
-- `/consensus` endpoint — proxied, multi-node verified responses (paid tier)
+- `/consensus` endpoint — proxied, multi-node verified responses 
 - Non-EVM chain support — Kaspa, Bitcoin, Solana
 - Node reputation scoring — public quality index per node
 - WebSocket support — persistent connections with smart routing
