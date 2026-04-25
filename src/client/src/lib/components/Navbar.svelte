@@ -1,23 +1,21 @@
 <script lang="ts">
 	import { X, Menu } from 'lucide-svelte';
+	import logo from '$lib/assets/logo.png';
 
 	let mobileOpen = $state(false);
 </script>
 
 <header class="sticky top-0 z-50 border-b border-white/10 bg-[#08080a] p-6 sm:relative sm:z-auto">
 	<nav class="flex items-center justify-between">
-		<a
-			href="/"
-			class="text-lg font-medium tracking-tighter text-zinc-100 transition-colors hover:text-neon"
-		>
-			nrs.pub
+		<a href="/" class="flex items-center">
+			<img src={logo} alt="nrs.pub" class="h-8 w-auto" />
 		</a>
 
 		<!-- Desktop nav -->
 		<div class="hidden items-center gap-6 sm:flex">
-
 			<a href="/chains" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">chains</a>
-			<a href="/stats" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">stats</a>
+			<a href="https://github.com/saefstroem/nrs.pub" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">github</a>
+			<a href="https://x.com/saefstroem" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">x.com</a>
 			<a href="/donate" class="font-mono text-xs text-neon/70 transition-colors hover:text-neon">donate</a>
 		</div>
 
@@ -60,7 +58,8 @@
 		<nav class="flex flex-col gap-5">
 			<a href="/" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">home</a>
 			<a href="/chains" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">chains</a>
-			<a href="/stats" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">stats</a>
+			<a href="https://github.com/saefstroem/nrs.pub" target="_blank" rel="noopener noreferrer" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">github</a>
+			<a href="https://x.com/saefstroem" target="_blank" rel="noopener noreferrer" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">x.com</a>
 			<a href="/donate" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-neon/70 transition-colors hover:text-neon">donate</a>
 		</nav>
 

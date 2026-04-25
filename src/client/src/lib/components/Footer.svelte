@@ -7,12 +7,7 @@
 			class="border-b border-transparent pb-1 transition-colors hover:border-zinc-500 hover:text-zinc-300"
 			>github</a
 		>
-		<a
-			href="/stats"
-			class="border-b border-transparent pb-1 transition-colors hover:border-zinc-500 hover:text-zinc-300"
-			>status</a
-		>
-		<a
+<a
 			href="https://x.com/saefstroem"
 			class="border-b border-transparent pb-1 transition-colors hover:border-zinc-500 hover:text-zinc-300"
 			>x.com</a
