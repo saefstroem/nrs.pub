@@ -3,7 +3,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import CopyButton from '$lib/components/CopyButton.svelte';
 
-	const WALLET = '0x0000000000000000000000000000000000000000';
+	const WALLET = '0x2030763FE305D77c6d33c495f5Ad70F58f6d822E';
 </script>
 
 <svelte:head>
