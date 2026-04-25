@@ -3,17 +3,18 @@ pub mod handlers;
 mod result;
 use std::sync::Arc;
 
-use crate::{api::error::ApiError, auth::PasswordStore, rpc::RpcStorage, stats::Monitor};
+use crate::{auth::PasswordStore, rpc::RpcStorage, stats::Monitor};
 use axum::{
     Router,
     extract::State,
-    response::{Html, IntoResponse, Response},
+    http::{Method, StatusCode},
+    response::IntoResponse,
     routing::{delete, get, post},
 };
-use axum::{extract::Path, extract::Request, http::Method};
+use axum::extract::Path;
 use parking_lot::RwLock;
-use result::Result;
 use tokio::time::Instant;
+use tower::ServiceExt;
 use tower_http::services::{ServeDir, ServeFile};
 
 /// Contains the state of the API, which is also shared
@@ -48,21 +49,31 @@ pub struct Api {
     router: Router,
 }
 impl Api {
+    /// Handles `/{chain_id}`:
+    /// - POST with a valid u64 -> RPC proxy redirect
+    /// - Everything else -> delegate to ServeDir so static assets are served
+    ///   correctly and unknown paths fall back to the SPA's 200.html
     async fn rpc_or_spa(
         method: Method,
         Path(chain_id): Path<String>,
         state: State<Arc<ApiState>>,
-    ) -> Result<Response> {
+        req: axum::extract::Request,
+    ) -> impl IntoResponse {
         if method == Method::POST {
             if let Ok(id) = chain_id.parse::<u64>() {
-                return Api::rpc_proxy(state, Path(id)).await;
+                return Api::rpc_proxy(state, Path(id)).await.into_response();
             }
         }
-        let body = tokio::fs::read_to_string("dist/200.html")
+        ServeDir::new("dist")
+            .fallback(ServeFile::new("dist/200.html"))
+            .oneshot(req)
             .await
-            .unwrap_or_default();
-        Ok(Html(body).into_response())
+            .map_or_else(
+                |_| StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+                |r| r.into_response(),
+            )
     }
+
     /// Creates a new instance of the API with the given state.
     pub fn new(state: Arc<ApiState>) -> Self {
         let router = Router::new()
