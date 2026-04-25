@@ -230,4 +230,4 @@ Violations result in automatic IP blacklisting.
 
 ## License
 
-MIT — Built by [@saefstroem](https://x.com/saefstroem)
+MIT
