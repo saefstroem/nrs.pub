@@ -15,7 +15,7 @@
 		<div class="hidden items-center gap-6 sm:flex">
 			<a href="/chains" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">chains</a>
 			<a href="https://github.com/saefstroem/nrs.pub" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">github</a>
-			<a href="https://x.com/saefstroem" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">x.com</a>
+			<a href="https://x.com/asaefstroem" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-300">x.com</a>
 			<a href="/donate" class="font-mono text-xs text-neon/70 transition-colors hover:text-neon">donate</a>
 		</div>
 
@@ -59,7 +59,7 @@
 			<a href="/" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">home</a>
 			<a href="/chains" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">chains</a>
 			<a href="https://github.com/saefstroem/nrs.pub" target="_blank" rel="noopener noreferrer" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">github</a>
-			<a href="https://x.com/saefstroem" target="_blank" rel="noopener noreferrer" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">x.com</a>
+			<a href="https://x.com/asaefstroem" target="_blank" rel="noopener noreferrer" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-zinc-400 transition-colors hover:text-zinc-100">x.com</a>
 			<a href="/donate" onclick={() => (mobileOpen = false)} class="font-mono text-xs text-neon/70 transition-colors hover:text-neon">donate</a>
 		</nav>
 

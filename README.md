@@ -2,7 +2,7 @@
 
 **Node Resolution Service — Public RPC node resolution and smart routing for any blockchain.**
 
-[Website](https://nrs.pub) | [Chains](https://nrs.pub/chains) | [GitHub](https://github.com/saefstroem/nrs.pub) | [X](https://x.com/saefstroem) | [Donate](https://nrs.pub/donate)
+[Website](https://nrs.pub) | [Chains](https://nrs.pub/chains) | [GitHub](https://github.com/saefstroem/nrs.pub) | [X](https://x.com/asaefstroem) | [Donate](https://nrs.pub/donate)
 
 ---
 
