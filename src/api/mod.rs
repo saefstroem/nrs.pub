@@ -4,19 +4,19 @@ mod result;
 use std::sync::Arc;
 
 use crate::{auth::PasswordStore, rpc::RpcStorage, stats::Monitor};
+use axum::extract::Path;
+use axum::response::{Html, Response};
 use axum::{
     Router,
     extract::State,
-    http::{Method, StatusCode},
+    http::Method,
     response::IntoResponse,
     routing::{delete, get, post},
 };
-use axum::extract::Path;
 use parking_lot::RwLock;
 use tokio::time::Instant;
-use tower::ServiceExt;
 use tower_http::services::{ServeDir, ServeFile};
-
+use result::Result;
 /// Contains the state of the API, which is also shared
 /// with the rest of the system.
 pub struct ApiState {
@@ -57,21 +57,16 @@ impl Api {
         method: Method,
         Path(chain_id): Path<String>,
         state: State<Arc<ApiState>>,
-        req: axum::extract::Request,
-    ) -> impl IntoResponse {
+    ) -> Result<Response> {
         if method == Method::POST {
             if let Ok(id) = chain_id.parse::<u64>() {
-                return Api::rpc_proxy(state, Path(id)).await.into_response();
+                return Api::rpc_proxy(state, Path(id)).await;
             }
         }
-        ServeDir::new("dist")
-            .fallback(ServeFile::new("dist/200.html"))
-            .oneshot(req)
+        let body = tokio::fs::read_to_string("dist/200.html")
             .await
-            .map_or_else(
-                |_| StatusCode::INTERNAL_SERVER_ERROR.into_response(),
-                |r| r.into_response(),
-            )
+            .unwrap_or_default();
+        Ok(Html(body).into_response())
     }
 
     /// Creates a new instance of the API with the given state.
