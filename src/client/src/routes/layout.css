@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-neon: #00ff9f;
+	--font-sans: 'Inter', sans-serif;
+	--font-mono: 'JetBrains Mono', monospace;
+	--animate-blink: blink 1s step-end infinite;
+	--animate-pulse-bg: pulse-bg 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+@keyframes pulse-bg {
+	0%,
+	100% {
+		background-color: rgba(0, 255, 159, 0.05);
+	}
+	50% {
+		background-color: transparent;
+	}
+}
+
+::selection {
+	background-color: #00ff9f;
+	color: #000;
+}

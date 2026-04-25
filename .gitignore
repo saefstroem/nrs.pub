@@ -1,0 +1,11 @@
+/src/client/.svelte-kit
+/src/client/node_modules
+/target
+/venv
+/src/client/build
+*.py
+*.json
+pw
+src/.DS_Store
+*.redb
+.DS_Store
