@@ -89,7 +89,7 @@ The endpoint format is always `https://nrs.pub/<chain_id>`.
 
 ### Missing a Chain?
 
-If a chain you need is not listed, open a PR on the [GitHub repository](https://github.com/saefstroem/nrs.pub) and it will be considered for inclusion. Chains are evaluated based on demand, availability of reputable public nodes, and maintainability.
+If a chain you need is not listed, open a PR and it will be considered for inclusion. Chains are evaluated based on demand, availability of reputable public nodes, and maintainability.
 
 ---
 
@@ -181,31 +181,7 @@ Violations will result in IP blacklisting. Automated detection is in place.
 
 ## Architecture
 
-NRS is a lightweight Rust service built on [Axum](https://github.com/tokio-rs/axum). The architecture is intentionally minimal:
-
-```
-┌─────────────────────────────────────────────────────┐
-│                     nrs.pub                         │
-│                                                     │
-│  ┌───────────┐    ┌──────────────┐    ┌──────────┐  │
-│  │   Axum    │    │  RPC Storage │    │ Monitor  │  │
-│  │  Router   │───▶│  (in-memory) │◀───│ (bg task)│  │
-│  └───────────┘    └──────────────┘    └──────────┘  │
-│       │                                     │       │
-│       │ 307 redirect                        │       │
-│       ▼                                     │       │
-│  ┌──────────┐                      health checks    │
-│  │  Client  │                      against all      │
-│  └──────────┘                      nodes            │
-│       │                                             │
-│       │ direct connection                           │
-│       ▼                                             │
-│  ┌──────────┐                                       │
-│  │ RPC Node │                                       │
-│  └──────────┘                                       │
-└─────────────────────────────────────────────────────┘
-```
-
+NRS is a lightweight Rust service built on [Axum](https://github.com/tokio-rs/axum), routed through multiple LB's.
 ### Components
 
 - **Axum Router** — Receives incoming requests at `/:chain_id`, selects a random healthy node from the pool, and returns a 307 redirect.
@@ -242,37 +218,27 @@ NRS is not a security product. It is an infrastructure primitive that reduces ce
 - **Privacy.** NRS does not hide your traffic from node operators. Use a VPN.
 - **Consensus.** NRS provides resolution, not verification. A future `/consensus` endpoint is under consideration for proxied, multi-node verified responses.
 
+---
 ## When should you use NRS?
-Use NRS when you need a quick, reliable RPC endpoint and don't want to think about provider selection, API keys, or failover configuration. NRS is designed for developers and teams who want to start building immediately without shopping for RPC providers.
-Good use cases
 
-Prototyping and development. You're spinning up a new project and need an RPC endpoint in 10 seconds, not 10 minutes of provider comparison and key registration.
-Multi-chain applications. Your app supports 20+ chains. Instead of managing 20 provider accounts and API keys, use nrs.pub/<chain_id> for all of them.
-Scripts, bots, and tooling. One-off scripts, monitoring tools, CLI utilities — anything where setting up a dedicated provider account is overkill.
-Redundancy and failover. You already have a primary RPC provider but want a zero-config fallback. Point your failover logic at NRS and get automatic multi-node routing for free.
-Open-source projects. Ship your project with a working default RPC that doesn't require users to register for an API key before they can run your code.
-Education and workshops. Teaching Solidity, running a hackathon, or writing a tutorial. Participants can follow along without provider signup friction.
+**Use NRS when you need a quick, reliable RPC endpoint and don't want to think about provider selection, API keys, or failover configuration.** NRS is designed for developers and teams who want to start building immediately without shopping for RPC providers.
+
+### Good use cases
+
+- **Prototyping and development.** You're spinning up a new project and need an RPC endpoint in 10 seconds, not 10 minutes of provider comparison and key registration.
+- **Multi-chain applications.** Your app supports 20+ chains. Instead of managing 20 provider accounts and API keys, use `nrs.pub/<chain_id>` for all of them.
+- **Scripts, bots, and tooling.** One-off scripts, monitoring tools, CLI utilities — anything where setting up a dedicated provider account is overkill.
+- **Redundancy and failover.** You already have a primary RPC provider but want a zero-config fallback. Point your failover logic at NRS and get automatic multi-node routing for free.
+- **Open-source projects.** Ship your project with a working default RPC that doesn't require users to register for an API key before they can run your code.
+- **Education and workshops.** Teaching Solidity, running a hackathon, or writing a tutorial. Participants can follow along without provider signup friction.
 
 ### When NRS is not the right choice
 
-High-frequency trading or MEV. You need deterministic latency, private mempools, or transaction ordering guarantees. Use a dedicated provider with SLA commitments.
-Stateful RPC operations. If your application relies on eth_newFilter, eth_getFilterChanges, or any method that requires consecutive requests to hit the same node, NRS will break your workflow. Use a direct connection instead.
-Archive node queries. NRS routes to whatever healthy node is available. There is no guarantee that the resolved node is an archive node. If you need historical state at arbitrary block heights, use a provider that explicitly offers archive access.
-Privacy-critical operations. NRS redirects your client directly to the node — your IP and payload are visible to the node operator. If you require end-to-end privacy, use a VPN in combination with NRS or connect through a provider whose privacy policy you have verified.
-
----
-
-## Comparison
-
-| | Traditional RPC | NRS |
-|---|---|---|
-| Single point of failure | Yes | No — random node per request |
-| API keys required | Usually | Never |
-| Failover configuration | Manual | Automatic |
-| Node health monitoring | Your responsibility | Built-in |
-| Traffic proxied | Depends | Never — 307 redirect |
-| Stateful filters | Supported | Not supported |
-| Cost | Free tier / paid | Free |
+- **High-frequency trading or MEV.** You need deterministic latency, private mempools, or transaction ordering guarantees. Use a dedicated provider with SLA commitments.
+- **Stateful RPC operations.** If your application relies on `eth_newFilter`, `eth_getFilterChanges`, or any method that requires consecutive requests to hit the same node, NRS will break your workflow. Use a direct connection instead.
+- **Archive node queries.** NRS routes to whatever healthy node is available. There is no guarantee that the resolved node is an archive node. If you need historical state at arbitrary block heights, use a provider that explicitly offers archive access.
+- **Privacy-critical operations.** NRS redirects your client directly to the node — your IP and payload are visible to the node operator. If you require end-to-end privacy, use a VPN in combination with NRS or connect through a provider whose privacy policy you have verified.
+- **Guaranteed uptime SLAs.** NRS is free infrastructure maintained by one person. There are no uptime guarantees, no support contracts, and no SLAs. If your business requires contractual reliability commitments, use a paid provider.
 
 ---
 
