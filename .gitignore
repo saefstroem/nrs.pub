@@ -10,3 +10,5 @@ src/.DS_Store
 .DS_Store
 rpcs_bak.json
 rpcs.json
+/dist
+/src/client/dist
