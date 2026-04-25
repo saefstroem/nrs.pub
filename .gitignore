@@ -4,8 +4,9 @@
 /venv
 /src/client/build
 *.py
-*.json
 pw
 src/.DS_Store
 *.redb
 .DS_Store
+rpcs_bak.json
+rpcs.json
