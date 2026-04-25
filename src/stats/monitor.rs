@@ -13,7 +13,7 @@ use crate::{
 const RPC_TIMEOUT: Duration = Duration::from_secs(10);
 const MAX_RETRIES: u32 = 3;
 const RETRY_BASE_MS: u64 = 500;
-const POLL_INTERVAL: Duration = Duration::from_secs(60);
+const POLL_INTERVAL: Duration = Duration::from_secs(600);
 const HOURLY_SLOTS: usize = 24;
 
 /// Parses a hex string (e.g. "0x1a") into a u64, returning 0 on failure.
