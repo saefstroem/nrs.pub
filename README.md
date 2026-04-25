@@ -242,6 +242,54 @@ NRS is not a security product. It is an infrastructure primitive that reduces ce
 
 ---
 
+## For enterprises
+
+NRS is not a replacement for your private RPC infrastructure. It is the fallback layer you should have behind it.
+
+The recommended architecture for production systems is simple: use your private RPC provider (Alchemy, Infura, QuickNode, or self-hosted nodes) as the primary endpoint, and configure NRS as the automatic failover.
+
+When your primary provider goes down, gets rate-limited, or returns errors, your application seamlessly falls back to NRS — which routes across a randomized pool of vetted public nodes. No manual intervention, no secondary provider account to manage.
+
+### How this would have mitigated the KelpDAO hack
+
+On April 18, 2026, attackers stole ~$292 million from KelpDAO by compromising the internal RPC nodes that LayerZero's verification network depended on. The attack succeeded because the verifier had a fixed, predictable set of RPC endpoints. The attackers compromised the internal nodes and DDoS'd the external ones, leaving the verifier with no honest source of truth.
+
+If the verification infrastructure had been configured with NRS as a fallback layer, the DDoS against external nodes would not have created a total blackout. Instead of failing over exclusively to the compromised internal nodes, the system would have resolved to a randomized public node from the NRS pool — a node the attacker did not know about in advance and could not have pre-compromised. The forged chain state would have been contradicted by at least one honest source, and the phantom burn would not have passed verification unchallenged.
+
+NRS does not guarantee that every node in the pool is honest. But it guarantees that an attacker cannot predict or control which node will be selected — and that is enough to break the attack model that drained $292 million.
+
+### Integration pattern
+
+Most Web3 libraries support fallback transports natively:
+
+**viem**
+```typescript
+import { createPublicClient, http, fallback } from "viem";
+import { mainnet } from "viem/chains";
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: fallback([
+    http("https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY"),
+    http("https://nrs.pub/1"),
+  ]),
+});
+```
+
+**ethers.js**
+```typescript
+import { FallbackProvider, JsonRpcProvider } from "ethers";
+
+const provider = new FallbackProvider([
+  new JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY"),
+  new JsonRpcProvider("https://nrs.pub/1"),
+]);
+```
+
+For critical infrastructure — bridges, oracles, verification networks — consider issuing the same call through both your primary provider and NRS independently, then comparing results before acting on them. If the responses diverge, halt and investigate. This is the cheapest form of cross-provider consensus available today.
+
+---
+
 ## Roadmap
 
 - **`/consensus` endpoint** — Proxied, multi-node verified responses for safety-critical operations. Paid tier.
