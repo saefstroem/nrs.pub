@@ -14,20 +14,9 @@ use serde::{Deserialize, Serialize};
 struct RawChain {
     name: String,
     #[serde(default)]
-    rpc: Vec<RpcEntry>,
+    rpc: Vec<String>,
     #[serde(rename = "chainId", default)]
     chain_id: u64,
-}
-
-#[derive(Deserialize)]
-struct RpcEntry {
-    url: String
-}
-
-impl RpcEntry {
-    fn url(&self) -> &str {
-        &self.url
-    }
 }
 
 /// Runtime representation of a chain with its RPC endpoints
@@ -72,8 +61,7 @@ impl RpcStorage {
         for rc in raw_chains {
             let rpcs: Vec<String> = rc
                 .rpc
-                .iter()
-                .map(|e| e.url().to_string())
+                .into_iter()
                 .filter(|url| url.starts_with("http://") || url.starts_with("https://"))
                 .collect();
             if rpcs.is_empty() {
